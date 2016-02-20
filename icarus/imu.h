@@ -27,6 +27,7 @@ typedef struct
   Vec3i_t lia;
   Vec4i_t qua;
   Vec3i_t eul;
+  Vec3i_t gyr;
 }
 IMU_t;
 

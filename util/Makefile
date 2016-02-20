@@ -4,8 +4,8 @@ MCU=atmega32u4
 CFLAGS=-g -Wall -mcall-prologues -mmcu=$(MCU) -Os
 LDFLAGS=-Wl,-gc-sections -Wl,-relax
 CC=avr-gcc
-TARGET=test_imu
-OBJECT_FILES=i2c.o usart.o imu.o test_imu.o
+TARGET=test_usart
+OBJECT_FILES=test_usart.o usart.o
 
 all: $(TARGET).hex
 
@@ -22,4 +22,4 @@ program: $(TARGET).hex
 	avrdude -p $(MCU) -c avr109 -P $(PORT) -U flash:w:$(TARGET).hex
 
 monitor:
-		screen -h 10000 $(SCREEN) 19200
+		screen -h 10000 $(SCREEN) 9600

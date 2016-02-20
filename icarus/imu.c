@@ -49,6 +49,20 @@ void imu_update(IMU_t* imu)
   imu->eul.x = (int) i2c_read_word(imu->dev_addr, 0x1E);
   imu->eul.y = (int) i2c_read_word(imu->dev_addr, 0x1C);
   imu->eul.z = (int) i2c_read_word(imu->dev_addr, 0x1A);
+
+  imu->lia.x = (int) i2c_read_word(imu->dev_addr, 0x28);
+  imu->lia.y = (int) i2c_read_word(imu->dev_addr, 0x2A);
+  imu->lia.z = (int) i2c_read_word(imu->dev_addr, 0x2C);
+
+  imu->qua.w = (int) i2c_read_word(imu->dev_addr, 0x20);
+  imu->qua.x = (int) i2c_read_word(imu->dev_addr, 0x22);
+  imu->qua.y = (int) i2c_read_word(imu->dev_addr, 0x24);
+  imu->qua.z = (int) i2c_read_word(imu->dev_addr, 0x26);
+
+  imu->gyr.x = (int) i2c_read_word(imu->dev_addr, 0x14);
+  imu->gyr.y = (int) i2c_read_word(imu->dev_addr, 0x16);
+  imu->gyr.z = (int) i2c_read_word(imu->dev_addr, 0x18);
+
 }
 
 void imu_assign_address(IMU_t* imu, uint8_t dev_addr)

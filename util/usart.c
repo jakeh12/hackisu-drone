@@ -28,12 +28,15 @@ uint8_t usart_receive(void)
   return UDR1;
 }
 
-void usart_send_string(char* string)
+void usart_transmit_string(char* string)
 {
   int i;
   for (i = 0; (*string != 0) && (i < 65535); i++)
   {
     usart_transmit(*string);
+    if (*string == '\n')
+      usart_transmit('\r');
+
     string++;
   }
 }

@@ -4,8 +4,8 @@ MCU=atmega32u4
 CFLAGS=-g -Wall -mcall-prologues -mmcu=$(MCU) -Os
 LDFLAGS=-Wl,-gc-sections -Wl,-relax
 CC=avr-gcc
-TARGET=test_imu
-OBJECT_FILES=i2c.o usart.o imu.o test_imu.o
+TARGET=icarus
+OBJECT_FILES=i2c.o usart.o imu.o ppm.o icarus.o
 
 all: $(TARGET).hex
 

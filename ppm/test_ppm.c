@@ -7,11 +7,11 @@ int main(void)
   {
     // UPDATE CHANNELS
     // CH1 going up and down DEMO
-    for (ppm[CHANNEL1] = PPM_MIN; ppm[CHANNEL1] <= PPM_MAX; ppm[CHANNEL1]++)
-      _delay_ms(1);
+    for (ppm[CHANNEL1] = 910; ppm[CHANNEL1] <= 1050; ppm[CHANNEL1]++)
+      _delay_ms(6);
 
-    for (;ppm[CHANNEL1] >= PPM_MIN; ppm[CHANNEL1]--)
-      _delay_ms(1);
+    for (;ppm[CHANNEL1] >= 910; ppm[CHANNEL1]--)
+      _delay_ms(6);
   }
   return 0;
 }

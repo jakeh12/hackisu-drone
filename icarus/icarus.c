@@ -1,6 +1,16 @@
 #include "imu.h"
 #include "ppm.h"
 #include "usart.h"
+#include "exp_table.h"
+
+
+int remap_exp(value)
+{
+  int index = value + 720;
+  if (index < 0) { index = 0; }
+  if (index > 1440) {index = 1440; }
+  return exp_table[index];
+}
 
 int remap(int value, int from_low, int from_high, int to_low, int to_high)
 {
@@ -8,11 +18,6 @@ int remap(int value, int from_low, int from_high, int to_low, int to_high)
   return (int)(to_low + ((((long)value-(long)from_low)*((long)to_high-(long)to_low))/((long)from_high-(long)from_low)));
 }
 
-int treshold(int value, int min, int max)
-{
-  if (value > min && value < max) { return 1100-1; }
-  return value;
-}
 
 int main()
 {
@@ -46,23 +51,27 @@ int main()
   int ch2;
   int ch3;
   int ch4;
+  char debug[100];
 
   while(1)
   {
     imu_update(imu_r);
     imu_update(imu_l);
 
-    ch1 = remap(imu_l->eul.y, -1100, 0, 700, 1500);
+    ch1 = remap(imu_l->eul.x, -360, 360, 700, 1500);
     ppm_send(CHANNEL1, ch1);
 
-    ch2 = remap(-imu_r->eul.y, -720, 720, 700+150, 1500-150);
+    ch2 = remap_exp(imu_r->eul.y);
     ppm_send(CHANNEL2, ch2);
 
     ch3 = remap(-imu_r->eul.x, -720, 720, 700+150, 1500-150);
     ppm_send(CHANNEL3, ch3);
 
-    ch4 = remap(-imu_l->eul.x, -720, 720, 700+300, 1500-300);
+    ch4 = remap(-imu_l->eul.y, -720, 720, 700+300, 1500-300);
     ppm_send(CHANNEL4, ch4);
+
+    sprintf(debug, "EXP: %04d\r\n", -imu_r->eul.y);
+    usart_send_string(debug);
 
     _delay_ms(10);
   }

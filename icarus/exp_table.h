@@ -1,6 +1,6 @@
 #include <avr/pgmspace.h>
 
-int const exp_table[1441]PROGMEM= {
+const int exp_table[1441] PROGMEM = {
   700,
   701,
   703,
